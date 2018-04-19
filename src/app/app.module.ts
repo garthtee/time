@@ -5,7 +5,8 @@ import { SweetAlert2Module } from '@toverux/ngx-sweetalert2';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { TimesComponent } from './times/times.component';
-
+import { TimeService } from './services/time.service';
+import { HttpModule } from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -17,13 +18,14 @@ import { TimesComponent } from './times/times.component';
   imports: [
     BrowserModule,
     SweetAlert2Module.forRoot({
-      buttonsStyling: false,
-      customClass: 'modal-content',
-      confirmButtonClass: 'btn btn-primary',
-      cancelButtonClass: 'btn'
-  })
+        buttonsStyling: false,
+        customClass: 'modal-content',
+        confirmButtonClass: 'btn btn-primary',
+        cancelButtonClass: 'btn'
+    }),
+    HttpModule
   ],
-  providers: [],
+  providers: [ TimeService ],
   bootstrap: [HeaderComponent, TimesComponent, AppComponent, FooterComponent]
 })
 export class AppModule { }

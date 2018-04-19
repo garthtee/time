@@ -1,6 +1,10 @@
-const mysqlSecrets = { 
-    host     : '',
-    database : '',
-    user     : '',
-    password : ''
-};
+var config = {};
+
+config.mysql = {};
+
+config.mysql.host = '';
+config.mysql.database = '';
+config.mysql.user = '';
+config.mysql.password = '';
+
+module.exports = config;
