@@ -1,0 +1,36 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-lg-6 mx-auto">
+      <div class="form-group">
+        <label for="start-time-input">Start time</label>
+        <input type="time" class="form-control" placeholder="Enter a start time" #startTimeInput>
+      </div>
+      <div class="form-group">
+        <label for="start-time-input">Finish time</label>
+        <input type="time" class="form-control" placeholder="Enter a finish time" #finishTimeInput>
+      </div>
+      <div class="form-group">
+        <label for="start-time-input">Break time</label>
+        <input type="number" class="form-control" placeholder="Enter a break time" #breakTimeInput>
+      </div>
+      <button class="btn btn-primary float-right" 
+          (click)="onAddButtonClicked(startTimeInput.value, finishTimeInput.value, breakTimeInput.value)">
+        <i class="fa fa-plus"> </i>  
+      </button>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-6 mx-auto mt-4 mb-5">
+        <div *ngFor="let time of times">
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ time.startTime }}
+                to
+                {{ time.finishTime }}                
+              <span class="badge badge-primary badge-pill">{{ time.breakTime }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+  </div>
+</div>

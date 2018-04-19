@@ -5,7 +5,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 
 // Get API routes
-const api = require('./routes/api');
+const main = require('./routes/main');
 
 const app = express();
 
@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set api routes
-app.use('/api', api);
+app.use('/', main);
 
 /**
  * Uncomment the following when running 'npm run build' 
