@@ -11,10 +11,15 @@ import { Observable } from 'rxjs/Rx';
 export class TimesComponent implements OnInit {
 
   times: any = [];
+  weeklyHours: number = 38;
+  totals: number = 0;
+  totalColor: string = 'green';
 
   constructor(private timeService: TimeService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.refreshTimes();
+  }
 
   onAddButtonClicked(startTime, finishTime, breakTime) {
 
@@ -28,7 +33,7 @@ export class TimesComponent implements OnInit {
 
     swal({
       type: 'success',
-      title: 'Start time =  ' + startTime
+      title: 'Time saved!'
     });
 
     let time = {
@@ -37,17 +42,27 @@ export class TimesComponent implements OnInit {
       breakTime
     };
 
-
-    this.times.push(time);
-
     this.createTime(time);
+  }
+
+  onSettingsButtonClicked() {
+    swal({
+      title: 'Total hours weekly.',
+      input: 'number',
+      inputValue: this.weeklyHours.toString(),
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+    }).then((result) => {
+      if (result.value) {
+        this.weeklyHours = result.value;
+      }
+    });
   }
 
   createTime(time) {
     this.timeService.createTime(time).subscribe(
         data => {
-          // refresh the list
-          // this.getFoods();
+          this.refreshTimes();
           return true;
         },
         error => {
@@ -55,5 +70,23 @@ export class TimesComponent implements OnInit {
           return Observable.throw(error);
         }
     );
+  }
+
+  getAllTimes() {
+    this.timeService.getAllTimes().subscribe(
+      times => {
+        this.times = times.result;
+        this.totals = times.total;
+        return true;
+      },
+      error => {
+        console.error(`Error getting times. ${error}`);
+        return Observable.throw(error);
+      }     
+    )
+  }
+
+  refreshTimes() {
+    this.times = this.getAllTimes();
   }
 }

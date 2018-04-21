@@ -1,6 +1,9 @@
 var mysql = require('mysql');
 var config = require('./config');
 var express = require('express');
+var moment = require('moment');
+var momentDurationFormatSetup = require("moment-duration-format");
+momentDurationFormatSetup(moment);
 var router = express.Router();
 module.exports = router; // Used for defining express routes
 
@@ -54,6 +57,30 @@ router.get('/all', (req, res) => {
     var sql = 'SELECT * FROM times;'; 
     connection.query(sql, (err, result) => {
         if (err) throw err;
-        res.send(JSON.stringify({ result }));
+
+        var totalDuration = moment.duration();
+
+        // Work out difference between times
+        result.forEach(element => {
+            var start = moment.utc(element.startTime, "HH:mm");
+            var end = moment.utc(element.finishTime, "HH:mm");
+
+            // Account for crossing over to midnight the next day
+            if (end.isBefore(start)) end.add(1, 'day');
+
+            // Get duration and subtract break time
+            var duration = moment.duration(end.diff(start));
+            duration.subtract(element.breakTime, 'minutes');
+
+            // Add difference to the json
+            element.difference = moment.utc(+ duration).format('H:mm');
+
+            // Add this duration to the total
+            totalDuration = totalDuration.add(duration);
+        });
+
+        var total = (totalDuration).format('H:mm');
+
+        res.json({ result, total });
     });
 });
