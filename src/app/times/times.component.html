@@ -35,9 +35,9 @@
         <div *ngFor="let time of times">
           <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ time.startTime | date: 'dd/MM hh:mm' }}
+                {{ time.startTime | date: 'dd/MM/yyyy hh:mm' }}
                 to
-                {{ time.finishTime | date: 'dd/MM hh:mm' }}
+                {{ time.finishTime | date: 'dd/MM/yyyy hh:mm' }}
                 <h4>{{ time.difference }}</h4>
               <span class="badge badge-primary badge-pill" data-toggle="tooltip" data-placement="top" title="Break time">{{ time.breakTime }}</span>
             </li>

@@ -73,13 +73,13 @@ router.get('/all', (req, res) => {
             duration.subtract(element.breakTime, 'minutes');
 
             // Add difference to the json
-            element.difference = moment.utc(+ duration).format('H:mm');
+            element.difference = moment.utc(+ duration).format('HH:mm');
 
             // Add this duration to the total
             totalDuration = totalDuration.add(duration);
         });
 
-        var total = (totalDuration).format('H:mm');
+        var total = (totalDuration).format('HH:mm');
 
         res.json({ result, total });
     });
