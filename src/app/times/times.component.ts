@@ -64,7 +64,7 @@ export class TimesComponent implements OnInit {
       allowOutsideClick: false,
       showCloseButton: false,
     }).then((result) => {
-      this.theme = result.value ? '' : '#5b5b5b';
+      this.theme = result.value ? '' : '#e5e5e5';
       this.setThemeElementsCSS();      
     });
   }
