@@ -1,15 +1,16 @@
 <div class="container mt-3">
-  <div class="row">
-    
-
+  <div class="row">  
     <div class="col-auto ml-auto">
-        <button class="btn btn-default" 
-        (click)="onSettingsButtonClicked()">
-        Settings <i class="fa fa-gear"></i>  
-      </button>  
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        <i class="fa fa-gear"></i>
+      </button>
+      <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" (click)="onChangeThemeClicked()">Theme</a>
+          <a class="dropdown-item" href="#" (click)="onSettingsClicked()">Weekly Hours</a>
+        </div>
     </div>
-
   </div>
+
   <div class="row">
     <div class="col-lg-6 mx-auto">
       <div class="form-group">
@@ -25,28 +26,44 @@
         <input type="number" class="form-control" placeholder="Enter a break time" #breakTimeInput>
       </div>
       <button class="btn btn-success float-right" 
-          (click)="onAddButtonClicked(startTimeInput.value, finishTimeInput.value, breakTimeInput.value)">
+          (click)="onAddClicked(startTimeInput.value, finishTimeInput.value, breakTimeInput.value)">
         <i class="fa fa-plus"> </i>  
       </button>
     </div>
-  </div>
-  <div class="row">
-      <div class="col-lg-6 mx-auto mt-4 mb-5">
-        <div *ngFor="let time of times">
-          <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                {{ formatDate(time.startTime) }}
-                to
-                {{ formatDate(time.finishTime) }}
-                <h4>{{ time.difference }}</h4>
-              <span class="badge badge-primary badge-pill" data-toggle="tooltip" data-placement="top" title="Break time">{{ time.breakTime }}</span>
-            </li>
-          </ul>
-        </div>
-        <br>
+    <div class="col-lg-6 mx-auto mt-4 mb-5">
+      <div *ngFor="let time of times">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center"
+            (click)="listItemClick(time.id, time.difference)">
+              <h4>{{ time.difference }}</h4>
+            <span class="badge badge-primary badge-pill" data-toggle="tooltip" data-placement="top" title="Break time">{{ time.breakTime }}</span>
+          </li>
+        </ul>
+      </div>
+      <br>
       <h3 class="float-right" [ngStyle]="{'color': totals > weeklyHours ? 'green' : 'red'}">
         Total: {{ totals }} / {{ weeklyHours }}
       </h3>
+    </div>
+  </div>
+</div>
+
+<div id="timeModal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>

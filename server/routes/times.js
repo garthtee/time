@@ -84,3 +84,20 @@ router.get('/all', (req, res) => {
         res.json({ result, total });
     });
 });
+
+/**
+ * GET: List all times
+ */
+router.get('/get/id/:timeId', (req, res) => {
+
+    var timeId = req.params.timeId;
+
+    var sql = 'SELECT * FROM times WHERE id = ?;'; 
+    connection.query(sql, timeId, (err, result) => {
+        if (err) throw err;
+
+        var totalDuration = moment.duration();
+
+        res.json({ result });
+    });
+});

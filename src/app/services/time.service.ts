@@ -4,17 +4,22 @@ import { Http } from '@angular/http';
 @Injectable()
 export class TimeService {
 
-  // If development, use this url prefix
-  urlPrefix: string = isDevMode() ? 'http://localhost:3000' : '';
+  // If development else production
+  urlPrefix: string = isDevMode() ? 'http://localhost:3000/times' : '/times';
 
   constructor(private http: Http) { }
 
   createTime(time) {
-    return this.http.post(`${this.urlPrefix}/times/add/`, time);
+    return this.http.post(`${this.urlPrefix}/add/`, time);
   }
 
   getAllTimes() {
-    return this.http.get(`${this.urlPrefix}/times/all/`)
+    return this.http.get(`${this.urlPrefix}/all/`)
+      .map(res => res.json());
+  }
+
+  getTimeById(timeId) {
+    return this.http.get(`${this.urlPrefix}/get/id/${timeId}`)
       .map(res => res.json());
   }
 }
