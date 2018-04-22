@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import swal from 'sweetalert2';
 import { TimeService } from '../services/time.service';
 import { Observable } from 'rxjs/Rx';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-times',
@@ -88,5 +89,9 @@ export class TimesComponent implements OnInit {
 
   refreshTimes() {
     this.times = this.getAllTimes();
+  }
+
+  formatDate(date) {
+    return moment(date).format("YYYY-MM-DD HH:mm")
   }
 }

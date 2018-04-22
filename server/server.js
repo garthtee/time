@@ -21,8 +21,8 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Point static path to dist
-// app.use(express.static(path.join(__dirname, 'dist')));
+// Point static path to dist to show angular front-end (production)
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // Set api routes
 app.use('/', main);
