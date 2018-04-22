@@ -1,6 +1,6 @@
 # Time
 
-A simple application used for calculating and saving times.
+A simple application used for calculating and saving times. View time [here](https://time.garthtoland.com).
 
 ## Development
 
