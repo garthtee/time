@@ -147,11 +147,11 @@ export class TimesComponent implements OnInit {
   }
 
   formatDateTime(date): string {
-    return moment(new Date(date)).format("DD-MM-YYYY HH:mm")
+    return moment(new Date(date)).format("YYYY-MM-DD HH:mm")
   }
 
   formatDate(date): string {
-    return moment(new Date(date)).format("DD-MM-YYYY")
+    return moment(new Date(date)).format("YYYY-MM-DD")
   }
 
   formatTime(date): string {
