@@ -26,7 +26,7 @@ export class TimesComponent implements OnInit {
 
   onAddClicked(startTime, finishTime, breakTime): void {
 
-    if (!startTime && !finishTime) {
+    if (!startTime || !finishTime) {
       swal({
         type: 'error',
         title: 'You must enter start and finish times.'
@@ -147,14 +147,14 @@ export class TimesComponent implements OnInit {
   }
 
   formatDateTime(date): string {
-    return moment(date).format("DD-MM-YYYY HH:mm")
+    return moment(new Date(date)).format("DD-MM-YYYY HH:mm")
   }
 
   formatDate(date): string {
-    return moment(date).format("DD-MM-YYYY")
+    return moment(new Date(date)).format("DD-MM-YYYY")
   }
 
   formatTime(date): string {
-    return moment(date).format("HH:mm")
+    return moment(new Date(date)).format("HH:mm")
   }
 }

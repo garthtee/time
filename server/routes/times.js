@@ -32,6 +32,11 @@ router.post('/add', (req, res) => {
     var finishTime = req.body.finishTime;
     var breakTime = req.body.breakTime;
 
+    // Set the seconds to 0
+    const seconds = ':00';
+    startTime = `${startTime}${seconds}`; 
+    finishTime = `${finishTime}${seconds}`; 
+
     breakTime = breakTime == '' ? 0 : breakTime;
 
     const time = {
