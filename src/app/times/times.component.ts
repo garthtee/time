@@ -74,7 +74,7 @@ export class TimesComponent implements OnInit {
 
       const time = result as Time;
 
-      const html = `<h4>${this.formatTime(time.startTime)} - ${this.formatTime(time.finishTime)}</h4>
+      const html = `<h4>${time} - ${time}</h4>
         <h4>Break: ${time.breakTime} mins</h4>
         <h4>Total: ${difference}</h4>`;
 
