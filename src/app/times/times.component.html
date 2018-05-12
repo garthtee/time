@@ -41,7 +41,7 @@
         </ul>
       </div>
       <br>
-      <h3 class="float-right" [ngStyle]="{'color': totals > weeklyHours ? 'green' : 'red'}">
+      <h3 class="float-right" [ngStyle]="{'color': totals >= weeklyHours ? 'green' : 'red'}">
         Total: {{ totals }} / {{ weeklyHours }}
       </h3>
     </div>
