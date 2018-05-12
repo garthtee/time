@@ -21,6 +21,7 @@ export class TimesComponent implements OnInit {
   constructor(private timeService: TimeService) { }
 
   ngOnInit() {
+    moment.locale('en-au');
     this.refreshTimes();
   }
 
@@ -74,7 +75,7 @@ export class TimesComponent implements OnInit {
 
       const time = result as Time;
 
-      const html = `<h4>${time} - ${time}</h4>
+      const html = `<h4>${this.formatTime(time.startTime)} - ${this.formatTime(time.finishTime)}</h4>
         <h4>Break: ${time.breakTime} mins</h4>
         <h4>Total: ${difference}</h4>`;
 
@@ -147,11 +148,11 @@ export class TimesComponent implements OnInit {
   }
 
   formatDateTime(date): string {
-    return moment(new Date(date)).format("YYYY-MM-DD HH:mm")
+    return moment(new Date(date)).format("DD-MM-YYYY HH:mm")
   }
 
   formatDate(date): string {
-    return moment(new Date(date)).format("YYYY-MM-DD")
+    return moment(new Date(date)).format("DD-MM-YYYY")
   }
 
   formatTime(date): string {
