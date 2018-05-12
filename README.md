@@ -5,7 +5,7 @@ A simple application used for calculating and saving times. View time [here](htt
 ## Development
 
 Run `npm run devWeb` to start the front-end server. Navigate to `http://localhost:4200/`.
-Run `npm run devServer` to start the back-end server. Navigate to `http://localhost:3000/`. If you run both commands at the same time youwill have the full functionality of the application.
+Run `npm run devServer` to start the back-end server. Navigate to `http://localhost:3000/`. If you run both commands at the same time you will have the full functionality of the application.
 
 ## Build
 
