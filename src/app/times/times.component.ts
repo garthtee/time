@@ -213,12 +213,12 @@ export class TimesComponent implements OnInit {
    * Converts time to decimal value.
    * @param timeString time as a string
    */
-  getTimeAsDecimal(timeString: string) {
+  getTimeAsDecimal(timeString) {
 
     if (typeof timeString !== 'string')
       return;
 
     var time = timeString.replace(':', '.');
-    return time;
+    return Number(time);
   }
 }
