@@ -1,12 +1,13 @@
 <div class="container mt-3">
   <div class="row">  
-    <div class="col-auto ml-auto">
-        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+    <div class="col">
+        <button class="btn btn-default dropdown-toggle float-right" type="button" data-toggle="dropdown">
         <i class="fa fa-gear"></i>
       </button>
-      <div class="dropdown-menu">
+      <div class="dropdown-menu dropdown-menu-right">
           <a class="dropdown-item" href="#" (click)="onChangeThemeClicked()">Theme</a>
-          <a class="dropdown-item" href="#" (click)="onSettingsClicked()">Weekly Hours</a>
+          <a class="dropdown-item" href="#" (click)="onSettingsClicked()">Weekly hours</a>
+          <a class="dropdown-item" href="#" (click)="onDeleteAllClicked()">Delete all</a>
         </div>
     </div>
   </div>
@@ -34,14 +35,14 @@
       <div *ngFor="let time of times">
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center"
-            (click)="listItemClick(time.id, time.difference)">
+            (click)="onListItemClick(time.id, time.difference)">
               <h4>{{ time.difference }}</h4>
             <span class="badge badge-primary badge-pill" data-toggle="tooltip" data-placement="top" title="Break time">{{ time.breakTime }}</span>
           </li>
         </ul>
       </div>
       <br>
-      <h3 class="float-right" [ngStyle]="{'color': totals >= weeklyHours ? 'green' : 'red'}">
+      <h3 class="float-right" [ngStyle]="{'color': getTimeAsDecimal(totals) >= weeklyHours ? 'green' : 'red'}">
         Total: {{ totals }} / {{ weeklyHours }}
       </h3>
     </div>

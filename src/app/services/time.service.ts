@@ -14,7 +14,12 @@ export class TimeService {
   }
 
   getAllTimes() {
-    return this.http.get(`${this.urlPrefix}/all/`)
+    return this.http.get(`${this.urlPrefix}/get/all/`)
+      .map(res => res.json());
+  }
+
+  deleteAllTimes() {
+    return this.http.get(`${this.urlPrefix}/delete/all/`)
       .map(res => res.json());
   }
 

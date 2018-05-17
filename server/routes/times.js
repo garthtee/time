@@ -50,14 +50,14 @@ router.post('/add', (req, res) => {
     connection.query(sql, [time], (err, result) => {
         if (err) throw err;
         console.log('1 record insterted');
-        res.send(JSON.stringify({ result: '1 record inserted' }));
+        res.send(JSON.stringify({ status: 'ok' }));
     });
 });
 
 /**
- * GET: List all times
+ * GET: List all times.
  */
-router.get('/all', (req, res) => {
+router.get('/get/all', (req, res) => {
 
     var sql = 'SELECT * FROM times;'; 
     connection.query(sql, (err, result) => {
@@ -91,7 +91,20 @@ router.get('/all', (req, res) => {
 });
 
 /**
- * GET: List all times
+ * GET: Delete all times - truncate table.
+ */
+router.get('/delete/all', (req, res) => {
+    const sql = 'TRUNCATE TABLE times;';
+    connection.query(sql, (err, result) => {
+        if (err) throw err;
+
+        // res.send(JSON.stringify({ status: 'ok' }));
+        res.json({ status: 'ok' });
+    })
+})
+
+/**
+ * GET: List all times.
  */
 router.get('/get/id/:timeId', (req, res) => {
 

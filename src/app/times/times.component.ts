@@ -25,6 +25,10 @@ export class TimesComponent implements OnInit {
     this.refreshTimes();
   }
 
+  onDeleteAllClicked(): void {
+    this.deleteAllTimes();
+  }
+
   onAddClicked(startTime, finishTime, breakTime): void {
 
     if (!startTime || !finishTime) {
@@ -38,6 +42,13 @@ export class TimesComponent implements OnInit {
     let time = { startTime, finishTime, breakTime };
 
     this.createTime(time);
+  }
+
+  /**
+   * Gets times from the database.
+   */
+  refreshTimes(): void {
+    this.times = this.getAllTimes();
   }
 
   onSettingsClicked(): void {
@@ -70,7 +81,7 @@ export class TimesComponent implements OnInit {
     });
   }
 
-  listItemClick(timeId, difference): void {
+  onListItemClick(timeId, difference): void {
     this.getTimeById(timeId).then((result) => {
 
       const time = result as Time;
@@ -106,6 +117,22 @@ export class TimesComponent implements OnInit {
     );
   }
 
+  deleteAllTimes(): void {
+    this.timeService.deleteAllTimes().subscribe(
+      data => {
+        this.refreshTimes();
+        swal({
+          type: 'success',
+          title: 'Times deleted successfully.'
+        });
+      },
+      error => {
+        console.error(`Error deleting times. ${error}`);
+        return Observable.throw(error);
+      }
+    );
+  }
+
   getAllTimes(): any {
     this.timeService.getAllTimes().subscribe(
       times => {
@@ -135,6 +162,10 @@ export class TimesComponent implements OnInit {
     return promise;
   }
 
+  /**
+   * Sets the background colour of all elements on
+   * display to follow a theme.
+   */
   setThemeElementsCSS(): void {
     $('body').css('background-color', this.theme);
     $('nav').css('background-color', this.theme);
@@ -143,22 +174,31 @@ export class TimesComponent implements OnInit {
     $('footer').css('background-color', this.theme);
   }
 
-  refreshTimes(): void {
-    this.times = this.getAllTimes();
-  }
-
+  /**
+   * Formats date-time to DD-MM-YYYY HH:mm.
+   * @param date 
+   */
   formatDateTime(date): string {
-    return moment(new Date(date)).format("DD-MM-YYYY HH:mm")
+    return moment(new Date(date)).format("DD-MM-YYYY HH:mm");
   }
 
+  /**
+   * Formats date to DD-MM-YYYY.
+   * @param date 
+   */
   formatDate(date): string {
-    return moment(new Date(date)).format("DD-MM-YYYY")
+    return moment(new Date(date)).format("DD-MM-YYYY");
   }
 
   formatTime(date): string {
-    return moment(new Date(date)).format("HH:mm")
+    return moment(new Date(date)).format("HH:mm");
   }
 
+  /**
+   * Strips out unrealted values and returns
+   * a raw string time value. 
+   * @param date
+   */
   formatTimeRaw(date): string {
 
     date = date.substring(date.indexOf("T") + 1);
@@ -167,5 +207,18 @@ export class TimesComponent implements OnInit {
     date = date.replace('Z', '');
 
     return date;
+  }
+
+  /**
+   * Converts time to decimal value.
+   * @param timeString time as a string
+   */
+  getTimeAsDecimal(timeString: string) {
+
+    if (typeof timeString !== 'string')
+      return;
+
+    var time = timeString.replace(':', '.');
+    return time;
   }
 }
